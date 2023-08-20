@@ -29,7 +29,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Fake Shop'),
+          title: const Text('Магазин барахла https://fakestoreapi.com/'),
         ),
         body: FutureBuilder(
           future: ProductsRepository().getProducts(),

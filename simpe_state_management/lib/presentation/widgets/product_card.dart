@@ -12,12 +12,21 @@ class ProductCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      child: Row(children: [
-        SizedBox(height: 100, width: 100, child: Image.network(card.imageUrl)),
-        Text(card.title),
-        Text('${card.price}'),
-      ]),
+    return ListTile(
+      onTap: () {},
+      //selectedColor: Colors.amber,
+      leading: Image.network(
+        card.imageUrl,
+        width: 100,
+      ),
+      trailing: const Icon(Icons.shopping_bag),
+      title: Text(card.title),
+
+      subtitle: Text(
+        'Цена: ${card.price}',
+        style: const TextStyle(
+            color: Colors.red, fontWeight: FontWeight.w900, fontSize: 16),
+      ),
     );
   }
 }
