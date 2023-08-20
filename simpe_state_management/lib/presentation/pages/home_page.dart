@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:simpe_state_management/domain/repositories/products_repository.dart';
 
+import '../widgets/product_card.dart';
+
 class HomePage extends StatefulWidget {
   const HomePage({
     super.key,
@@ -38,10 +40,7 @@ class _HomePageState extends State<HomePage> {
               return ListView.builder(
                 itemCount: snapshot.data.products.length,
                 itemBuilder: (context, index) {
-                  final p = snapshot.data.products[index];
-                  return Card(
-                    child: Text(p.title),
-                  );
+                  return ProductCard(card: snapshot.data.products[index]);
                 },
               );
             }
