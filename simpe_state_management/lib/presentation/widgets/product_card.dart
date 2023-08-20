@@ -13,15 +13,15 @@ class ProductCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      selectedTileColor: Colors.amber,
       onTap: () {},
-      //selectedColor: Colors.amber,
+      selectedColor: Colors.blue,
       leading: Image.network(
         card.imageUrl,
         width: 100,
       ),
       trailing: const Icon(Icons.shopping_bag),
       title: Text(card.title),
-
       subtitle: Text(
         'Цена: ${card.price}',
         style: const TextStyle(
