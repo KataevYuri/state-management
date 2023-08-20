@@ -10,7 +10,7 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.amberAccent,
-        title: const Text('Breweries Shop'),
+        title: const Text('Fake Shop'),
       ),
       body: const Center(
         child: Text('Hello World!'),
