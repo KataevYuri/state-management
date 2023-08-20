@@ -10,8 +10,9 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.amberAccent,
+        title: const Text('Breweries Shop'),
       ),
-      body: Center(
+      body: const Center(
         child: Text('Hello World!'),
       ),
     );
