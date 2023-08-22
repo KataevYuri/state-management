@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:simpe_state_management/domain/providers/ssm_provider.dart';
 
 import '../../domain/models/product.dart';
 
@@ -14,7 +16,7 @@ class ProductCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       selectedTileColor: Colors.amber,
-      onTap: () {},
+      onTap: () => context.read<CounterInCart>().increment(),
       selectedColor: Colors.blue,
       leading: Image.network(
         card.imageUrl,
