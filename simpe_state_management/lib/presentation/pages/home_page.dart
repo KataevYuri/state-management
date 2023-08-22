@@ -12,33 +12,31 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('Магазин барахла https://fakestoreapi.com/'),
-        ),
-        floatingActionButton: FloatingActionButton.extended(
-            onPressed: () {},
-            label: Text(
-                'В корзине ${context.watch<CounterInCart>().value} товаров'),
-            icon: const Icon(
-              Icons.shopping_cart,
-            )),
-        body: FutureBuilder(
-          future: ProductsRepository().getProducts(),
-          builder: (BuildContext context, AsyncSnapshot snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(child: CircularProgressIndicator());
-            } else {
-              return ChangeNotifierProvider<CounterInCart>(
-                create: (_) => CounterInCart(),
-                child: ListView.builder(
-                  itemCount: snapshot.data.products.length,
-                  itemBuilder: (context, index) {
-                    return ProductCard(card: snapshot.data.products[index]);
-                  },
-                ),
-              );
-            }
-          },
-        ));
+      appBar: AppBar(
+        title: const Text('Магазин барахла https://fakestoreapi.com/'),
+      ),
+      floatingActionButton: FloatingActionButton.extended(
+          onPressed: () {},
+          label:
+              Text('В корзине ${context.watch<CounterInCart>().value} товаров'),
+          icon: const Icon(
+            Icons.shopping_cart,
+          )),
+      body: FutureBuilder(
+        future: ProductsRepository().getProducts(),
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          } else {
+            return ListView.builder(
+              itemCount: snapshot.data.products.length,
+              itemBuilder: (context, index) {
+                return ProductCard(card: snapshot.data.products[index]);
+              },
+            );
+          }
+        },
+      ),
+    );
   }
 }
