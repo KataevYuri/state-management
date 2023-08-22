@@ -17,8 +17,9 @@ class HomePage extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton.extended(
           onPressed: () {},
-          label:
-              Text('В корзине ${context.watch<CounterInCart>().value} товаров'),
+          label: Consumer<CounterInCart>(
+              builder: (context, state, child) =>
+                  Text('В корзине ${state.value} товаров')),
           icon: const Icon(
             Icons.shopping_cart,
           )),
