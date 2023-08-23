@@ -1,11 +1,6 @@
-//Получение списка товаров
-//https://fakestoreapi.com/products
-import 'dart:js_util';
-
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
 import '../domain/models/product.dart';
-//import '../domain/models/products_list.dart';
+import '../domain/models/products_list.dart';
 
 class ProductsDIOData {
   Future<ProductsList> _getProductsData() async {

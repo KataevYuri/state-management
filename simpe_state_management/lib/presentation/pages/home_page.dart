@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:simpe_state_management/domain/providers/ssm_provider.dart';
+//import 'package:provider/provider.dart';
+//import 'package:simpe_state_management/domain/providers/ssm_provider.dart';
 import 'package:simpe_state_management/domain/repositories/products_repository.dart';
 import 'package:simpe_state_management/presentation/widgets/product_card.dart';
 
 class HomePage extends StatefulWidget {
-  HomePage({
+  const HomePage({
     super.key,
   });
 
