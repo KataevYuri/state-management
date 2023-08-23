@@ -3,6 +3,8 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'product.g.dart';
 
+typedef ProductsList = List<Product>;
+
 @JsonSerializable()
 class Product extends Equatable {
   final int id;
