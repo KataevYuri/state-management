@@ -14,12 +14,17 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  late var productsList = [];
+  var pl = [];
 
   @override
   void initState() {
+    getData();
     super.initState();
-    productsList = ProductsRepository().getProducts();
+  }
+
+  getData() async {
+    pl = await ProductsRepository().getProducts();
+    setState(() {});
   }
 
   @override
@@ -28,21 +33,36 @@ class _HomePageState extends State<HomePage> {
         appBar: AppBar(
           title: const Text('Магазин барахла https://fakestoreapi.com/'),
         ),
-        // floatingActionButton: FloatingActionButton.extended(
-        //     onPressed: () {},
-        //     label: Consumer<CounterInCart>(
-        //         builder: (context, state, child) =>
-        //             Text('В корзине ${state.value} товаров')),
-        //     icon: const Icon(
-        //       Icons.shopping_cart,
-        //     )),
-        body: productsList.isNotEmpty
-            ? ListView.builder(
-                itemCount: productsList.length,
-                itemBuilder: (context, index) {
-                  return ProductCard(card: productsList[index]);
-                },
+        body: pl.isNotEmpty
+            ? Column(
+                children: [
+                  Expanded(
+                    child: ListView.builder(
+                      itemCount: pl.length,
+                      itemBuilder: (context, index) {
+                        return ProductCard(card: pl[index]);
+                      },
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: ElevatedButton(
+                      onPressed: () {
+                        setState(() {});
+                      },
+                      child: Text('Товаров в корзине: 0'),
+                    ),
+                  )
+                ],
               )
-            : const Center(child: CircularProgressIndicator()));
+            : const Center(
+                child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text('Загрузка данных...'),
+                  SizedBox(height: 10),
+                  CircularProgressIndicator(),
+                ],
+              )));
   }
 }

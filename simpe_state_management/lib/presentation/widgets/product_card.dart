@@ -14,20 +14,23 @@ class ProductCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      selectedTileColor: Colors.amber,
-      onTap: () => context.read<CounterInCart>().increment(),
-      selectedColor: Colors.blue,
-      leading: Image.network(
-        card.imageUrl,
-        width: 100,
-      ),
-      trailing: const Icon(Icons.shopping_bag),
-      title: Text(card.title),
-      subtitle: Text(
-        'Цена: ${card.price}',
-        style: const TextStyle(
-            color: Colors.red, fontWeight: FontWeight.w900, fontSize: 16),
+    return Card(
+      elevation: 2,
+      child: ListTile(
+        selectedTileColor: Colors.amber,
+        onTap: () => context.read<CounterInCart>().increment(),
+        selectedColor: Colors.blue,
+        leading: Image.network(
+          card.imageUrl,
+          width: 100,
+        ),
+        trailing: const Icon(Icons.shopping_bag),
+        title: Text(card.title),
+        subtitle: Text(
+          'Цена: ${card.price}',
+          style: const TextStyle(
+              color: Colors.red, fontWeight: FontWeight.w900, fontSize: 16),
+        ),
       ),
     );
   }
