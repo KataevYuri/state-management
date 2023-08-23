@@ -14,7 +14,7 @@ class MainApp extends StatelessWidget {
         create: (_) => CounterInCart(),
         child: MaterialApp(
           theme: lightTheme,
-          home: const HomePage(),
+          home: HomePage(),
         ));
   }
 }

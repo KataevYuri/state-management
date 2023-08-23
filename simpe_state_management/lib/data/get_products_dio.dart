@@ -5,11 +5,20 @@ import '../domain/models/product.dart';
 import '../domain/models/products_list.dart';
 
 class ProductsDIOData {
-  Future<ProductsList> getData() async {
+  Future<List> _getProductsData() async {
     final response = await Dio().get('https://fakestoreapi.com/products');
     final data = response.data as List<dynamic>;
-    return ProductsList(
-      data.map((e) => Product.fromJson(e)).toList(),
-    );
+    return data.map((e) => Product.fromJson(e)).toList();
+  }
+
+  ProductsList getProductsData() {
+    final data = _getProductsData();
+    ProductsList listProducts = [];
+    data.then((value) {
+      for (var item in value) {
+        listProducts.add(item);
+      }
+    });
+    return listProducts;
   }
 }
