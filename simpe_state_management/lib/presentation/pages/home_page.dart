@@ -24,27 +24,30 @@ class HomePage extends StatelessWidget {
         title: const Text('Магазин барахла https://fakestoreapi.com/'),
       ),
       body: pl.isNotEmpty
-          ? Column(
-              children: [
-                Expanded(
-                  child: ListView.builder(
-                    itemCount: pl.length,
-                    itemBuilder: (context, index) {
-                      return ProductCard(card: pl[index]);
-                    },
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(12.0),
-                  child: ElevatedButton(
-                    onPressed: () => context.read<CounterInCart>().clear(),
-                    child: Consumer<CounterInCart>(
-                      builder: (context, state, child) =>
-                          Text('Товаров в корзине: ${state.value}'),
+          ? FutureBuilder(
+              future: getData(),
+              builder: (context, snapshot) => Column(
+                children: [
+                  Expanded(
+                    child: ListView.builder(
+                      itemCount: pl.length,
+                      itemBuilder: (context, index) {
+                        return ProductCard(card: pl[index]);
+                      },
                     ),
                   ),
-                ),
-              ],
+                  Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: ElevatedButton(
+                      onPressed: () => context.read<CounterInCart>().clear(),
+                      child: Consumer<CounterInCart>(
+                        builder: (context, state, child) =>
+                            Text('Товаров в корзине: ${snapshot.data}'),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             )
           : const Center(
               child: Column(
