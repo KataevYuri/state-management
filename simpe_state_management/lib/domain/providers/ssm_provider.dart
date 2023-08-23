@@ -7,4 +7,9 @@ class CounterInCart with ChangeNotifier {
     value++;
     notifyListeners();
   }
+
+  void clear() {
+    value = 0;
+    notifyListeners();
+  }
 }
