@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
 import 'package:simpe_state_management/domain/models/products_list.dart';
 import 'package:simpe_state_management/domain/providers/ssm_provider.dart';
 import 'package:simpe_state_management/domain/repositories/products_repository.dart';
@@ -7,7 +8,7 @@ import 'package:simpe_state_management/presentation/widgets/product_card.dart';
 
 ProductsList pl = [];
 
-getData() async {
+Future getData() async {
   pl = await ProductsRepository().getProducts();
 }
 
