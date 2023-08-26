@@ -23,33 +23,14 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Магазин барахла https://fakestoreapi.com/'),
       ),
-      body: pl.isNotEmpty
-          ? FutureBuilder(
-              future: getData(),
-              builder: (context, snapshot) => Column(
-                children: [
-                  Expanded(
-                    child: ListView.builder(
-                      itemCount: pl.length,
-                      itemBuilder: (context, index) {
-                        return ProductCard(card: pl[index]);
-                      },
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(12.0),
-                    child: ElevatedButton(
-                      onPressed: () => context.read<CounterInCart>().clear(),
-                      child: Consumer<CounterInCart>(
-                        builder: (context, state, child) =>
-                            Text('Товаров в корзине: ${snapshot.data}'),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            )
-          : const Center(
+      body: FutureBuilder(
+        future: getData(),
+        builder: (
+          context,
+          snapshot,
+        ) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -58,7 +39,35 @@ class HomePage extends StatelessWidget {
                   CircularProgressIndicator(),
                 ],
               ),
-            ),
+            );
+          } else if (snapshot.connectionState == ConnectionState.done) {
+            return Column(
+              children: [
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: pl.length,
+                    itemBuilder: (context, index) {
+                      return ProductCard(card: pl[index]);
+                    },
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: ElevatedButton(
+                    onPressed: () => context.read<CounterInCart>().clear(),
+                    child: Consumer<CounterInCart>(
+                      builder: (context, state, child) =>
+                          Text('Товаров в корзине: ${state.value}'),
+                    ),
+                  ),
+                ),
+              ],
+            );
+          } else {
+            return const Text('error');
+          }
+        },
+      ),
     );
   }
 }
