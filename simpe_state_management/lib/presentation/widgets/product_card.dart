@@ -15,7 +15,7 @@ class ProductCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      elevation: 2,
+      elevation: 3,
       child: ListTile(
         selectedTileColor: Colors.amber,
         onTap: () => context.read<CounterInCart>().increment(),
@@ -29,7 +29,7 @@ class ProductCard extends StatelessWidget {
         subtitle: Text(
           'Цена: ${card.price}',
           style: const TextStyle(
-              color: Colors.red, fontWeight: FontWeight.w900, fontSize: 16),
+              color: Colors.red, fontWeight: FontWeight.w900, fontSize: 18),
         ),
       ),
     );
