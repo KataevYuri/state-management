@@ -3,14 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:simpe_state_management/domain/models/products_list.dart';
 import 'package:simpe_state_management/domain/providers/sm_provider.dart';
 
-import 'package:simpe_state_management/domain/repositories/products_repository.dart';
 import 'package:simpe_state_management/presentation/widgets/product_card.dart';
 
-ProductsList pl = [];
-
-Future getData() async {
-  pl = await ProductsRepository().getProducts();
-}
+//ProductsList pl = [];
 
 class HomePage extends ConsumerWidget {
   const HomePage({
@@ -21,54 +16,43 @@ class HomePage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final count = ref.watch(counterInCartProvider);
     final provider = ref.watch(counterInCartProvider.notifier);
+    AsyncValue<ProductsList> config = ref.watch(configProvider);
 
-    getData();
     return Scaffold(
       appBar: AppBar(
         title: const Text('Магазин барахла https://fakestoreapi.com/'),
       ),
-      body: FutureBuilder(
-        future: getData(),
-        builder: (
-          context,
-          snapshot,
-        ) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+      body: config.when(
+          loading: () => const Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text('Загрузка данных...'),
+                    SizedBox(height: 10),
+                    CircularProgressIndicator(),
+                  ],
+                ),
+              ),
+          data: (config) => Column(
                 children: [
-                  Text('Загрузка данных...'),
-                  SizedBox(height: 10),
-                  CircularProgressIndicator(),
+                  Expanded(
+                    child: ListView.builder(
+                      itemCount: config.length,
+                      itemBuilder: (context, index) {
+                        return ProductCard(card: config[index]);
+                      },
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: ElevatedButton(
+                      onPressed: () => provider.clear,
+                      child: Text('Товаров в корзине: $count'),
+                    ),
+                  ),
                 ],
               ),
-            );
-          } else if (snapshot.connectionState == ConnectionState.done) {
-            return Column(
-              children: [
-                Expanded(
-                  child: ListView.builder(
-                    itemCount: pl.length,
-                    itemBuilder: (context, index) {
-                      return ProductCard(card: pl[index]);
-                    },
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(12.0),
-                  child: ElevatedButton(
-                    onPressed: () => provider.clear,
-                    child: Text('Товаров в корзине: $count'),
-                  ),
-                ),
-              ],
-            );
-          } else {
-            return const Text('error');
-          }
-        },
-      ),
+          error: (err, stack) => Text('Error: $err')),
     );
   }
 }
