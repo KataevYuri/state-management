@@ -8,7 +8,9 @@ final counterInCartProvider =
 class CounterInCart extends StateNotifier<int> {
   CounterInCart() : super(0);
 
-  void increment() => state++;
+  void increment() {
+    state++;
+  }
 
   void clear() => state = 0;
 }

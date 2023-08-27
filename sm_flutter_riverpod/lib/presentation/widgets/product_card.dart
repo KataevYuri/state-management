@@ -19,7 +19,7 @@ class ProductCard extends ConsumerWidget {
       elevation: 3,
       child: ListTile(
         selectedTileColor: Colors.amber,
-        onTap: () => provider.increment,
+        onTap: () => provider.increment(),
         selectedColor: Colors.blue,
         leading: Image.network(
           card.imageUrl,

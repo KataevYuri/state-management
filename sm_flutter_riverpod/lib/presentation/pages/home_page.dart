@@ -46,7 +46,7 @@ class HomePage extends ConsumerWidget {
                   Padding(
                     padding: const EdgeInsets.all(12.0),
                     child: ElevatedButton(
-                      onPressed: () => provider.clear,
+                      onPressed: () => provider.clear(),
                       child: Text('Товаров в корзине: $count'),
                     ),
                   ),
