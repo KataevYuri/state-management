@@ -1,8 +1,4 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:async';
-
-import 'package:simpe_state_management/domain/models/products_list.dart';
-import 'package:simpe_state_management/domain/repositories/products_repository.dart';
 
 enum CounterInCartEven { increase, clear }
 
@@ -16,6 +12,7 @@ class CounterInCartBloc {
   Sink<CounterInCartEven> get action => _eventsController.sink;
 
   CounterInCartBloc() {
+    value = 0;
     _eventsController.stream.listen(_handleEvent);
   }
 
@@ -33,6 +30,3 @@ class CounterInCartBloc {
     _stateController.add(value);
   }
 }
-
-// final configProvider = FutureProvider<ProductsList>(
-//     (ref) async => await ProductsRepository().getProducts());

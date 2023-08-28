@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:simpe_state_management/domain/providers/sm_provider.dart';
+import 'package:simpe_state_management/presentation/pages/home_page.dart';
 
 import '../../domain/models/product.dart';
 
-class ProductCard extends ConsumerWidget {
+class ProductCard extends StatelessWidget {
   const ProductCard({
     super.key,
     required this.card,
@@ -12,13 +13,12 @@ class ProductCard extends ConsumerWidget {
   final Product card;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final provider = ref.watch(counterInCartProvider.notifier);
+  Widget build(BuildContext context) {
     return Card(
       elevation: 3,
       child: ListTile(
         selectedTileColor: Colors.amber,
-        onTap: () => provider.increment(),
+        onTap: () => counterBloc.action.add(CounterInCartEven.increase),
         selectedColor: Colors.blue,
         leading: Image.network(
           card.imageUrl,
