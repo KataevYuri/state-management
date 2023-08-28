@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:simpe_state_management/domain/models/products_list.dart';
-import 'package:simpe_state_management/domain/providers/sm_provider.dart';
+import 'package:simpe_state_management/domain/providers/counter_bloc.dart';
 import 'package:simpe_state_management/domain/repositories/products_repository.dart';
 
 import 'package:simpe_state_management/presentation/widgets/product_card.dart';
