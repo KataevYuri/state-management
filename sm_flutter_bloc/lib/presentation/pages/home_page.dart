@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:simpe_state_management/domain/models/products_list.dart';
 import 'package:simpe_state_management/domain/providers/sm_provider.dart';
 import 'package:simpe_state_management/domain/repositories/products_repository.dart';
 
 import 'package:simpe_state_management/presentation/widgets/product_card.dart';
 
-late final CounterInCartBloc counterBloc;
+late CounterInCartBloc bloc;
 
 class HomePage extends StatefulWidget {
   const HomePage({
@@ -20,12 +21,11 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    counterBloc = CounterInCartBloc();
+    bloc = CounterInCartBloc();
   }
 
   @override
   void dispose() {
-    counterBloc.dispose();
     super.dispose();
   }
 
@@ -51,15 +51,14 @@ class _HomePageState extends State<HomePage> {
                 ),
                 Padding(
                   padding: const EdgeInsets.all(12.0),
-                  child: ElevatedButton(
-                    onPressed: () =>
-                        counterBloc.action.add(CounterInCartEven.clear),
-                    child: StreamBuilder<int>(
-                        stream: counterBloc.state,
-                        builder: (context, snapshot) {
-                          return Text(
-                              'Товаров в корзине: ${snapshot.data ?? 0}');
-                        }),
+                  child: BlocProvider<CounterInCartBloc>(
+                    create: (context) => bloc,
+                    child: BlocBuilder<CounterInCartBloc, int>(
+                        builder: (context, state) => ElevatedButton(
+                            onPressed: () =>
+                                BlocProvider.of<CounterInCartBloc>(context)
+                                    .add(CounterInCartClearEvent()),
+                            child: Text('Товаров в корзине: $state'))),
                   ),
                 ),
               ],

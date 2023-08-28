@@ -1,13 +1,22 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-enum CounterInCartEven { increase, clear }
+abstract class CounterInCartEvent {}
 
-class CounterInCartBloc extends Bloc<CounterInCartEven, int> {
-  int value = 0;
+class CounterInCartIncrementEvent extends CounterInCartEvent {}
 
+class CounterInCartClearEvent extends CounterInCartEvent {}
+
+class CounterInCartBloc extends Bloc<CounterInCartEvent, int> {
   CounterInCartBloc() : super(0) {
-    <CounterInCartEven>(event, emit) {
-        if (event == CounterInCartEven.increase)
-    };
+    on<CounterInCartIncrementEvent>(_onIncrement);
+    on<CounterInCartClearEvent>(_onClear);
+  }
+
+  _onIncrement(CounterInCartIncrementEvent event, Emitter<int> emit) {
+    emit(state + 1);
+  }
+
+  _onClear(CounterInCartClearEvent event, Emitter<int> emit) {
+    emit(0);
   }
 }
