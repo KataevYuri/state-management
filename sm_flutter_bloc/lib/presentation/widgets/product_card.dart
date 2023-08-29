@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:simpe_state_management/domain/providers/sm_provider.dart';
+import 'package:simpe_state_management/domain/providers/counter_bloc.dart';
 import 'package:simpe_state_management/presentation/pages/home_page.dart';
 
 import '../../domain/models/product.dart';
