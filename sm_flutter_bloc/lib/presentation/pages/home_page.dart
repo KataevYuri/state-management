@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:simpe_state_management/domain/models/products_list.dart';
-import 'package:simpe_state_management/domain/providers/counter_bloc.dart';
+import 'package:simpe_state_management/domain/blocs/products_list_bloc/products_list_bloc.dart';
+import 'package:simpe_state_management/domain/blocs/counter_bloc/counter_bloc.dart';
 import 'package:simpe_state_management/domain/repositories/products_repository.dart';
 
 import 'package:simpe_state_management/presentation/widgets/product_card.dart';
@@ -18,10 +18,13 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final _productsListBloc = ProductsListBloc(ProductsRepository());
+
   @override
   void initState() {
     super.initState();
     bloc = CounterInCartBloc();
+    _productsListBloc.add(LoadProductsList());
   }
 
   @override
@@ -35,17 +38,17 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: const Text('Магазин барахла https://fakestoreapi.com/'),
       ),
-      body: StreamBuilder<ProductsList>(
-        stream: ProductsRepository().getProducts(),
-        builder: (BuildContext context, AsyncSnapshot<ProductsList> snapshot) {
-          if (snapshot.hasData) {
+      body: BlocBuilder<ProductsListBloc, ProductsListState>(
+        bloc: _productsListBloc,
+        builder: (context, state) {
+          if (state is ProductsListLoaded) {
             return Column(
               children: [
                 Expanded(
                   child: ListView.builder(
-                    itemCount: snapshot.data?.length,
+                    itemCount: state.productsList.length,
                     itemBuilder: (context, index) {
-                      return ProductCard(card: snapshot.data![index]);
+                      return ProductCard(card: state.productsList[index]);
                     },
                   ),
                 ),
@@ -63,20 +66,17 @@ class _HomePageState extends State<HomePage> {
                 ),
               ],
             );
-          } else if (snapshot.hasError) {
-            return Text('Error: ${snapshot.error}');
-          } else {
-            return const Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text('Загрузка данных...'),
-                  SizedBox(height: 10),
-                  CircularProgressIndicator(),
-                ],
-              ),
-            );
           }
+          return const Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text('Загрузка данных...'),
+                SizedBox(height: 10),
+                CircularProgressIndicator(),
+              ],
+            ),
+          );
         },
       ),
     );
