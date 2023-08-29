@@ -66,6 +66,8 @@ class _HomePageState extends State<HomePage> {
                 ),
               ],
             );
+          } else if (state is ProductsListLoadingError) {
+            return Text(state.exception.toString());
           }
           return const Center(
             child: Column(

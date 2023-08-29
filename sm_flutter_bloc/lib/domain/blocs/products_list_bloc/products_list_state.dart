@@ -14,3 +14,10 @@ class ProductsListLoaded extends ProductsListState {
     required this.productsList,
   });
 }
+
+class ProductsListLoadingError extends ProductsListState {
+  final Object? exception;
+  ProductsListLoadingError({
+    this.exception,
+  });
+}

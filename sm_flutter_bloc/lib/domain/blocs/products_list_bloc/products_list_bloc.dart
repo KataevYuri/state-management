@@ -8,8 +8,12 @@ part 'products_list_state.dart';
 class ProductsListBloc extends Bloc<ProductsListEvent, ProductsListState> {
   ProductsListBloc(this.productsRepository) : super(ProductsListInitial()) {
     on<LoadProductsList>((event, emit) async {
-      final productsList = await productsRepository.getProducts();
-      emit(ProductsListLoaded(productsList: productsList));
+      try {
+        final productsList = await productsRepository.getProducts();
+        emit(ProductsListLoaded(productsList: productsList));
+      } catch (e) {
+        emit(ProductsListLoadingError(exception: e));
+      }
     });
   }
 
