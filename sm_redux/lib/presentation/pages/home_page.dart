@@ -12,7 +12,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Store<AppState> store = StoreProvider.of<AppState>(context);
-
+    store.dispatch(GetProductsListAction());
     return Scaffold(
       appBar: AppBar(
         title: const Text('Redux'),
@@ -24,17 +24,14 @@ class HomePage extends StatelessWidget {
             builder: (context, vm) => vm.plist,
           ),
         ),
-        ElevatedButton(
-            onPressed: () => store.dispatch(GetProductsListAction()),
-            child: Text('aaaa')),
         Padding(
           padding: const EdgeInsets.all(12.0),
           child: StoreConnector<AppState, AppState>(
               converter: (store) => store.state,
-              builder: (context, vm) {
+              builder: (context, state) {
                 return ElevatedButton(
-                    onPressed: store.dispatch(ClearEvent()),
-                    child: Text('Товаров в корзине: ${vm.countInCart}'));
+                    onPressed: () => store.dispatch(ClearEvent()),
+                    child: Text('Товаров в корзине: ${state.countInCart}'));
               }),
         )
       ]),

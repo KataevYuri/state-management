@@ -7,7 +7,7 @@ class ClearEvent {}
 class GetProductsListAction {}
 
 class LoadedProductsListAction {
-  final Widget pl;
+  final Widget plist;
 
-  LoadedProductsListAction(this.pl);
+  LoadedProductsListAction(this.plist);
 }

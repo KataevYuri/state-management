@@ -23,4 +23,4 @@ Widget _getListReducer(Widget widget, GetProductsListAction action) =>
     const Center(child: CircularProgressIndicator());
 
 Widget _loadedListReducer(Widget widget, LoadedProductsListAction action) =>
-    action.pl;
+    action.plist;
