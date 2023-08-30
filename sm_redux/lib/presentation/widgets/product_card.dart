@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:simpe_state_management/domain/providers/sm_provider.dart';
+import 'package:redux/redux.dart';
+import 'package:simpe_state_management/domain/redux/action.dart';
+import 'package:simpe_state_management/domain/redux/app_state.dart';
 
 import '../../domain/models/product.dart';
 
@@ -14,14 +16,15 @@ class ProductCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return StoreConnector<CartState, ViewModel>(
-        converter: ViewModel.fromStore,
-        builder: (context, vm) {
+    final Store<AppState> store = StoreProvider.of<AppState>(context);
+    return StoreConnector<AppState, AppState>(
+        converter: (store) => store.state,
+        builder: (context, state) {
           return Card(
             elevation: 3,
             child: ListTile(
               selectedTileColor: Colors.amber,
-              onTap: () => vm.onIncrease,
+              onTap: () => store.dispatch(ClearEvent()),
               selectedColor: Colors.blue,
               leading: Image.network(
                 card.imageUrl,
