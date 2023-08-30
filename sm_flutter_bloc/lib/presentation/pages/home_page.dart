@@ -59,8 +59,7 @@ class _HomePageState extends State<HomePage> {
                     child: BlocBuilder<CounterInCartBloc, int>(
                         builder: (context, state) => ElevatedButton(
                             onPressed: () =>
-                                BlocProvider.of<CounterInCartBloc>(context)
-                                    .add(CounterInCartClearEvent()),
+                                bloc.add(CounterInCartClearEvent()),
                             child: Text('Товаров в корзине: $state'))),
                   ),
                 ),

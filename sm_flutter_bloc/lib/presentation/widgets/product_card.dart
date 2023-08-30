@@ -21,8 +21,7 @@ class ProductCard extends StatelessWidget {
           elevation: 3,
           child: ListTile(
             selectedTileColor: Colors.amber,
-            onTap: () => BlocProvider.of<CounterInCartBloc>(context)
-                .add(CounterInCartIncrementEvent()),
+            onTap: () => bloc.add(CounterInCartIncrementEvent()),
             selectedColor: Colors.blue,
             leading: Image.network(
               card.imageUrl,
